@@ -35,7 +35,7 @@ class generar_tareas_aleatorias():
 
     def generar(self,fecha,nclientes,cpedidos):
 
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'data'
 
@@ -79,7 +79,7 @@ class generar_tareas_aleatorias():
         
     def resetear(self):
 
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'data'
 
@@ -90,7 +90,7 @@ class generar_tareas_aleatorias():
             json.dump(hclist,outfile)
 
 def cargar_tipos_de_tareas():
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
         name_of_file = 'modelsettings'
         completeName = os.path.join(save_path, name_of_file+".txt") 
         with open(completeName) as json_file:
@@ -99,9 +99,9 @@ def cargar_tipos_de_tareas():
         a=list(tipos['tareas'].keys())
         return a,tipos['tareas']
 #x=cargar_tipos_de_tareas()
-x=generar_tareas_aleatorias()
-fecha=datetime.datetime.now()+datetime.timedelta(days=1)
+#x=generar_tareas_aleatorias()
+#fecha=datetime.datetime.now()+datetime.timedelta(days=1)
 #x.generar_Dia(save=False,fecha=fecha,nclientes=4,cpedidos=2)
 #x.resetear()
-x.generar(fecha,4,2)
+#x.generar(fecha,4,2)
 #print('vida gran hpta')

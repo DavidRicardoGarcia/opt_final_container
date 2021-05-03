@@ -15,7 +15,8 @@ import time
 # some_file.py
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
-sys.path.insert(1, '/home/david/Desktop/optimizacion_final')
+sys.path.insert(1, '/home/optimizacion_final')
+
 
 from elementos_modelo import mantenimiento as mto
 from elementos_modelo import clientes as clt
@@ -23,8 +24,9 @@ import ACO
 import PSO
 import GA
 import SA
-import Funcion_objetivo as fo
-funcion=fo
+import Agenda as ag
+# import Funcion_objetivo as fo
+# funcion=fo
 
 mant=mto.generar_mantenimiento_planificado()
 tareas=clt.generar_tareas_aleatorias()
@@ -106,10 +108,7 @@ def ejecutar_form(a,data):
                 "comentarios": data['comment']}
                 #print(datos)
                 agregar_tarea(datos)
-    if(a=='tareas-aleatorio.html'):
-        if(data!= " "):
-            if(data['ds']!= " " and data['td']!= " "and data['mc']!= " "):
-                tareas.generar(int(data['ds']),float(data['td']),int(data['mc']))
+
     if(a=='forma-mantenimiento.html'):
         if(data!= " "):
             if(data['encargado']!= " " and data['eresp']!= " " and data['fechaplan']!= " " and data['fuentecost']!= " "):
@@ -123,11 +122,6 @@ def ejecutar_form(a,data):
                 #print(datos)
                 agregar_orden_mto(datos)
 
-    if(a=='mantenimiento-aleatorio.html'):
-        if(data!= " "):
-            if(data['ds']!= " " and data['od']!= " "):
-                print(data)
-                mant.generar(int(data['ds']),float(data['od']))
     if(a=='Horarios-Personal.html'):
         print('hp')
     if(a=='opt-ga.html'):
@@ -164,14 +158,40 @@ def ejecutar_form(a,data):
         if(data!= " "):
             if(data['tipof']!= " "):
                 lista=[]
-                for i in registros['lista_total']:
+                for i in libro.bookR:
                     
-                    if(i['TAREA']['fecha_inicio']== data['tipof']):
-                        if ('EMPLEADO' in i.keys()):
-                            lista.append({'tipo':i['TIPO'],'hinicio':i['HINICIO'],'duracion':i['HORAS'],'nombre':i['TAREA']['nombre'],'empleado':i['EMPLEADO']['nombre'],'insumos':i['INSUMOS']})
-                        else: 
-                            lista.append({'tipo':i['TIPO'],'hinicio':i['HINICIO'],'duracion':i['HORAS'],'nombre':i['TAREA']['nombre'],'empleado':'no tiene','insumos':i['INSUMOS']})
-                #         lista.append()
+                    if(i.fecha.strftime("%m %d %Y") == data['tipof']):
+                        print('si lo encontro')
+                        print(i.fecha.strftime("%m %d %Y"))
+                        print(i.recursoA)
+                        print(i.recursoB1)
+                        print(i.recursoB2)
+                        print(i.recursoB3)
+                        print(i.recursoB4)
+                        print(i.recursoC)
+                        if(i.recursoA[0]['TAREA']!={}):
+                            for x in i.recursoA:
+                                if(x['EMPLEADO']==0):
+                                    empleado=0
+                                else:
+                                    empleado=x['EMPLEADO']['NOMBRE']
+                                lista.append({'tipo':x['TIPO'],'hinicio':x['HINICIO'],'duracion':x['HORAS'],'nombre':x['TAREA']['nombre'],'empleado':empleado,'insumos':x['INSUMOS']})
+                        if(i.recursoB1['TAREA']!={}):  
+                            lista.append({'tipo':i.recursoB1['TIPO'],'hinicio':i.recursoB1['HINICIO'],'duracion':i.recursoB1['HORAS'],'nombre':i.recursoB1['TAREA']['nombre'],'empleado':0,'insumos':i.recursoB1['INSUMOS']})
+                        if(i.recursoB2['TAREA']!={}):  
+                            lista.append({'tipo':i.recursoB2['TIPO'],'hinicio':i.recursoB2['HINICIO'],'duracion':i.recursoB2['HORAS'],'nombre':i.recursoB2['TAREA']['nombre'],'empleado':0,'insumos':i.recursoB2['INSUMOS']})
+                        if(i.recursoB3['TAREA']!={}):  
+                            lista.append({'tipo':i.recursoB3['TIPO'],'hinicio':i.recursoB3['HINICIO'],'duracion':i.recursoB3['HORAS'],'nombre':i.recursoB3['TAREA']['nombre'],'empleado':0,'insumos':i.recursoB3['INSUMOS']})
+                        if(i.recursoB4['TAREA']!={}):  
+                            lista.append({'tipo':i.recursoB4['TIPO'],'hinicio':i.recursoB4['HINICIO'],'duracion':i.recursoB4['HORAS'],'nombre':i.recursoB4['TAREA']['nombre'],'empleado':0,'insumos':i.recursoB4['INSUMOS']})
+                        if(i.recursoC[0]['TAREA']!={}):
+                            
+                            for x in i.recursoC:
+                                if(x['EMPLEADO']==0):
+                                    empleado=0
+                                else:
+                                    empleado=x['EMPLEADO']['NOMBRE']
+                                lista.append({'tipo':x['TIPO'],'hinicio':x['HINICIO'],'duracion':x['HORAS'],'nombre':x['TAREA']['nombre'],'empleado':empleado,'insumos':x['INSUMOS']})
                 if (lista == []):
                     lista.append({'tipo':'','hinicio':'','duracion':'','nombre':'','empleado':'','insumos':''})
                 consulta['query']=lista
@@ -196,7 +216,7 @@ def ejecutar_form(a,data):
 
 def selecionar_Resultado(a):
 
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'estado'
 
@@ -229,7 +249,7 @@ def ordenar_Tareas(state,tareas):
 
 def ejecutando_algoritmo(a):
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'estado'
 
@@ -265,7 +285,7 @@ def ejecutando_algoritmo(a):
 
 def cargar_estados():
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'estado'
 
@@ -280,11 +300,11 @@ def cargar_estados():
 
 def cargar_tareas():
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'data'
 
-        completeName = os.path.join(save_path, name_of_file+".txt") 
+        completeName = os.path.join(save_path, name_of_file+".json") 
 
         with open(completeName) as json_file:
             data = json.load(json_file)
@@ -352,7 +372,7 @@ def separar_por_tipos(tareas):
 
 def cargar_registros():
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'registro'
 
@@ -366,7 +386,7 @@ def cargar_registros():
 
 def actualizar_opt_Settings(datos,name):
 
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'optsettings'
 
@@ -382,11 +402,11 @@ def actualizar_opt_Settings(datos,name):
 
 def agregar_tarea(datos):
 
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'data'
 
-        completeName = os.path.join(save_path, name_of_file+".txt") 
+        completeName = os.path.join(save_path, name_of_file+".json") 
 
         with open(completeName) as json_file:
             data = json.load(json_file)
@@ -402,7 +422,7 @@ def agregar_tarea(datos):
 
 def agregar_orden_mto(datos):
 
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'datam'
 
@@ -422,7 +442,7 @@ def agregar_orden_mto(datos):
 
 def cargar_mantenimiento():
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'datam'
 
@@ -435,7 +455,7 @@ def cargar_mantenimiento():
 
 def cargar_personal():
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'datae'
 
@@ -448,7 +468,7 @@ def cargar_personal():
 
 def cargar_almacen():
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'Punta Delicia'
 
@@ -458,10 +478,23 @@ def cargar_almacen():
             data = json.load(json_file)
 
         return data['racks']
+def cargar_book():
+    save_path = '/home/optimizacion_final/datos_json'
+    name_of_file = 'book_pedidos'
+    completeName = os.path.join(save_path, name_of_file+".json") 
+    with open(completeName) as json_file:
+        pedidos = json.load(json_file)
+    
+    name_of_file = 'book_recursos'
+    completeName = os.path.join(save_path, name_of_file+".json") 
+    with open(completeName) as json_file:
+        recursos = json.load(json_file)
+    
+    return pedidos,recursos
 
 def cargar_datos():
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'charts'
 
@@ -470,72 +503,74 @@ def cargar_datos():
         with open(completeName) as json_file:
             data = json.load(json_file)
         
-        # pasoga=int(len(data['GA']['y'])/100)
-        # pasoga=0
-        # #print(pasoga)
-        # y=[]
-        # x=[]
-        # cont=0
-        # for i in range(len(data['GA']['y'])):
-        #     if(cont==pasoga):
-        #         y.append(data['GA']['y'][i])
-        #         x.append(data['GA']['x'][i])
-        #         cont=0
-        #     #cont+=1
-        # data['GA']['y']=y
-        # data['GA']['x']=x
+        pasoga=int(len(data['GA']['y'])/100)
+        #pasoga=0
+        #print(pasoga)
+        y=[]
+        x=[]
+        cont=0
+        for i in range(len(data['GA']['y'])):
+            if(cont==pasoga):
+                y.append(data['GA']['y'][i])
+                x.append(data['GA']['x'][i])
+                cont=0
+            cont+=1
+        data['GA']['y']=y
+        data['GA']['x']=x
 
-        # pasoga=int(len(data['SA']['y'])/100)
-        # pasoga=0
-        # #print(pasoga)
-        # y=[]
-        # x=[]
-        # cont=0
-        # for i in range(len(data['SA']['y'])):
-        #     if(cont==pasoga):
-        #         y.append(data['SA']['y'][i])
-        #         x.append(data['SA']['x'][i])
-        #         cont=0
-        #     #cont+=1
-        # data['SA']['y']=y
-        # data['SA']['x']=x
+        pasoga=int(len(data['SA']['y'])/100)
+        #pasoga=0
+        #print(pasoga)
+        y=[]
+        x=[]
+        cont=0
+        for i in range(len(data['SA']['y'])):
+            if(cont==pasoga):
+                y.append(data['SA']['y'][i])
+                x.append(data['SA']['x'][i])
+                cont=0
+            cont+=1
+        data['SA']['y']=y
+        data['SA']['x']=x
 
 
-        # pasoga=int(len(data['PSO']['y'])/100)
-        # pasoga=0
-        # #print(pasoga)
-        # y=[]
-        # x=[]
-        # cont=0
-        # for i in range(len(data['PSO']['y'])):
-        #     if(cont==pasoga):
-        #         y.append(data['PSO']['y'][i])
-        #         x.append(data['PSO']['x'][i])
-        #         cont=0
-        #     #cont+=1
-        # data['PSO']['y']=y
-        # data['PSO']['x']=x
+        pasoga=int(len(data['PSO']['y'])/100)
+        #pasoga=0
+        #print(pasoga)
+        y=[]
+        x=[]
+        cont=0
+        for i in range(len(data['PSO']['y'])):
+            if(cont==pasoga):
+                y.append(data['PSO']['y'][i])
+                x.append(data['PSO']['x'][i])
+                cont=0
+            cont+=1
+        data['PSO']['y']=y
+        data['PSO']['x']=x
 
-        # pasoga=int(len(data['ACO']['y'])/100)
-        # pasoga=0
-        # #print(pasoga)
-        # y=[]
-        # x=[]
-        # cont=0
-        # for i in range(len(data['ACO']['y'])):
-        #     if(cont==pasoga):
-        #         y.append(data['ACO']['y'][i])
-        #         x.append(data['ACO']['x'][i])
-        #         cont=0
-        #     cont+=1
-        # data['ACO']['y']=y
-        # data['ACO']['x']=x
+        pasoga=int(len(data['ACO']['y'])/100)
+        #pasoga=0
+        #print(pasoga)
+        y=[]
+        x=[]
+        cont=0
+        for i in range(len(data['ACO']['y'])):
+            if(cont==pasoga):
+                y.append(data['ACO']['y'][i])
+                x.append(data['ACO']['x'][i])
+                cont=0
+            cont+=1
+        data['ACO']['y']=y
+        data['ACO']['x']=x
 
         return data
 
 def recursos_por_Fecha():
-    inicio=datetime.strptime(registros['fecha_inicio'],'%m %d %Y')
-    final=datetime.strptime(registros['fecha_final'],'%m %d %Y')
+    inicio=datetime.strptime(brecursos['calendario'][0]['fecha'],'%m %d %Y')
+    final=datetime.strptime(brecursos['calendario'][-1]['fecha'],'%m %d %Y')
+    # inicio=datetime.strptime(registros['fecha_inicio'],'%m %d %Y')
+    # final=datetime.strptime(registros['fecha_final'],'%m %d %Y')
     valor=final-inicio
     lista=[]
     for i in range(valor.days+1):
@@ -550,3 +585,11 @@ cmantenimiento=cargar_mantenimiento()
 cpersonal=cargar_personal()
 calmacen=cargar_almacen()
 graficas=cargar_datos()
+bpedidos,brecursos=cargar_book()
+diao=datetime.strptime(brecursos['calendario'][0]['fecha'],'%m %d %Y')
+diaf=datetime.strptime(brecursos['calendario'][-1]['fecha'],'%m %d %Y')
+libro=ag.agenda()
+libro.crear_AgendaR(diao,diaf)
+libro.crear_AgendaP(diao,diaf)
+libro.cargarP(bpedidos['calendario'])
+libro.cargarR(brecursos['calendario'])

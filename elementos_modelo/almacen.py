@@ -70,7 +70,7 @@ class almacen():
     def __init__(self):
         super().__init__()
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'Punta Delicia'
 
@@ -204,7 +204,7 @@ class almacen():
 
     def inicializar_Racks(self,nombre,cantidad):
 
-            save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+            save_path = '/home/optimizacion_final/datos_json'
 
             name_of_file = nombre
 

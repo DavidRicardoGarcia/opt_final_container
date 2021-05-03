@@ -40,7 +40,7 @@ class viajes:
 
     def guardar(self):
 
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'datav'
 

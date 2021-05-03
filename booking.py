@@ -30,7 +30,7 @@ class planificador:
         self.lista_asignar=[]
     def cargar_datos_iniciales(self):
         
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
         #tiempos de cada elemento y de viajes
         name_of_file = 'modelsettings'
         completeName = os.path.join(save_path, name_of_file+".txt") 
@@ -740,7 +740,7 @@ class planificador:
             cont+=1
 
 def cargar_tareas():
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
         name_of_file = 'data'
         completeName = os.path.join(save_path, name_of_file+".json") 
         with open(completeName) as json_file:

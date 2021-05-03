@@ -28,7 +28,7 @@ class horarios():
 
     def __init__(self):
         super().__init__()
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'datae'
 
@@ -42,7 +42,7 @@ class horarios():
 
     def crear_lista_De_Empleados(self):
 
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'datae'
 
@@ -65,7 +65,7 @@ class horarios():
 
     def asignar_horario(self,nombre):
 
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
 
         name_of_file = 'datae'
 

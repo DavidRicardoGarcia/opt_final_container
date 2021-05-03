@@ -15,7 +15,7 @@ funcion=book.planificador()
 
 def terminado_algoritmo(res,tiempo,valor):
         
-	save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+	save_path = '/home/optimizacion_final/datos_json'
 
 	name_of_file = 'estado'
 
@@ -35,7 +35,7 @@ def terminado_algoritmo(res,tiempo,valor):
 
 def charts(x,y):
         
-    save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+    save_path = '/home/optimizacion_final/datos_json'
 
     name_of_file = 'charts'
 
@@ -296,7 +296,7 @@ def get_id_list(lista):
     return newlist
 
 def cargar_tareas():
-        save_path = '/home/david/Desktop/optimizacion_final/datos_json'
+        save_path = '/home/optimizacion_final/datos_json'
         name_of_file = 'data'
         completeName = os.path.join(save_path, name_of_file+".json") 
         with open(completeName) as json_file:
